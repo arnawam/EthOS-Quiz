@@ -4,29 +4,116 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>EthOS Quiz</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="quiz-container">
-    <img src="logo.png" alt="EthOS Logo" class="logo">
-    <h1>EthOS Quiz</h1>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-xl">
+    <h1 class="text-2xl font-bold text-center mb-4">EthOS Quiz</h1>
     
-    <div id="quiz">
-      <div id="question-container">
-        <h2 id="question">Loading...</h2>
-        <ul id="choices"></ul>
-      </div>
-
-      <button id="next-btn">Next</button>
+    <div id="start-screen" class="text-center">
+      <input id="username" type="text" placeholder="Enter your name" class="border p-2 w-full mb-4 rounded" />
+      <button onclick="startQuiz()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Start Quiz</button>
     </div>
 
-    <div id="result" class="hidden">
-      <h2 id="score"></h2>
-      <p id="tweet-result"></p>
-      <a id="tweet-link" href="#" target="_blank">Share on Twitter</a>
+    <div id="quiz-container" class="hidden">
+      <div id="question" class="text-lg font-medium mb-4"></div>
+      <div id="answers" class="mb-4"></div>
+      <button onclick="nextQuestion()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Next</button>
     </div>
+
+    <div id="result-screen" class="hidden text-center">
+      <h2 class="text-xl font-bold mb-2">Quiz Complete!</h2>
+      <p id="result-text" class="mb-4"></p>
+      <button onclick="shareResult()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Share to Twitter</button>
+    </div>
+
+    <footer class="mt-6 text-center text-sm text-gray-600">
+      Made by <a href="https://x.com/arnawama_" target="_blank" class="text-blue-600 hover:underline">@arnawama_</a>
+    </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const questions = [
+      {
+        question: "What does EthOS stand for?",
+        answers: ["Ethereum Operating System", "Ethical Operating System", "Ether on Solana", "Ethereum Only Source"],
+        correct: 0
+      },
+      {
+        question: "Which token powers EthOS rewards?",
+        answers: ["ETH", "BTC", "USDC", "LINK"],
+        correct: 0
+      },
+      {
+        question: "EthOS is described as what type of platform?",
+        answers: ["DeFi Pumpware", "NFT Marketplace", "L2 Rollup", "AI Oracle"],
+        correct: 0
+      },
+      {
+        question: "What is the Epoch system used for in EthOS?",
+        answers: ["Measuring time cycles and rewards", "Burning tokens", "Increasing taxes", "Staking BTC"],
+        correct: 0
+      },
+      {
+        question: "What type of mechanics power EthOS?",
+        answers: ["Composable mechanics", "Static mechanics", "Random boosters", "Non-fungible boosts"],
+        correct: 0
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let userName = "";
+
+    function startQuiz() {
+      userName = document.getElementById("username").value.trim();
+      if (!userName) {
+        alert("Please enter your name.");
+        return;
+      }
+      document.getElementById("start-screen").classList.add("hidden");
+      document.getElementById("quiz-container").classList.remove("hidden");
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const questionData = questions[currentQuestionIndex];
+      document.getElementById("question").textContent = questionData.question;
+
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+      questionData.answers.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.className = "block w-full text-left px-4 py-2 mb-2 border rounded hover:bg-gray-100";
+        btn.onclick = () => {
+          if (index === questionData.correct) score++;
+          nextQuestion();
+        };
+        answersDiv.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        endQuiz();
+      }
+    }
+
+    function endQuiz() {
+      document.getElementById("quiz-container").classList.add("hidden");
+      document.getElementById("result-screen").classList.remove("hidden");
+      document.getElementById("result-text").textContent = `${userName}, your score is ${score}/${questions.length}`;
+    }
+
+    function shareResult() {
+      const tweetText = encodeURIComponent(`${userName} just scored ${score}/${questions.length} on the EthOS quiz! Try it out yourself.`);
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+      window.open(tweetUrl, "_blank");
+    }
+  </script>
 </body>
 </html>
