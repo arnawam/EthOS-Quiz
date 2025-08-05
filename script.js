@@ -1,33 +1,33 @@
 const questions = [
   {
-    question: "What is EthOS primarily known as?",
+    question: "What is the primary goal of EthOS?",
     choices: [
-      "A Web2 search engine",
-      "A Layer-2 rollup",
-      "A social DeFi sandbox",
-      "A NFT trading platform"
+      "To be a hardware-based crypto wallet",
+      " A social DeFi platform with gamified mechanics and ETH-based rewards",
+      "A centralized exchange for Ethereum tokens",
+      "A wallet for storing NFTs"
     ],
     answer: 2
   },
   {
     question: "How many composable mechanics does EthOS claim to have?",
     choices: ["3", "5", "7", "10"],
-    answer: 2
+    answer: 3
   },
   {
-    question: "What do you earn while farming in EthOS?",
-    choices: ["ETH", "Points only", "NFTs", "Governance tokens"],
-    answer: 0
+    question: "What is $AIR in the context of EthOS?",
+    choices: ["A stablecoin used for gas fees", "A gamified airdrop token", "An NFT for EthOS characters", "A liquidity provider staking token"],
+    answer: 2
   },
   {
     question: "What mechanism does EthOS use to boost visibility?",
     choices: ["Airdrop", "Burn to Boost", "Minting", "Staking"],
-    answer: 1
+    answer: 2
   },
   {
-    question: "What is the main currency in the EthOS system?",
-    choices: ["USDT", "ETH", "BTC", "ARB"],
-    answer: 1
+    question: "What is BOOST in the context of EthOS?",
+    choices: ["A daily airdrop token", "A price-boosting market tool", "Extra APY for EOS farming", "The main governance token"],
+    answer: 3
   }
 ];
 
